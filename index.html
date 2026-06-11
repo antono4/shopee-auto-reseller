@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopeeReseller AI - Jualan Smarter, Bukan Harder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #EE4D2D;
+            --primary-dark: #D32F0F;
+            --secondary: #F5A623;
+            --accent: #2D3436;
+            --bg: #FFF9F5;
+            --card-bg: #FFFFFF;
+            --success: #00C853;
+            --warning: #FFB300;
+            --danger: #FF5252;
+            --text-primary: #2D3436;
+            --text-secondary: #636E72;
+            --border: #E0E0E0;
+            --shadow: 0 4px 20px rgba(0,0,0,0.08);
+            --shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
+            --radius: 16px;
+            --radius-sm: 12px;
+            --radius-xs: 8px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Background Pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(238,77,45,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(245,166,35,0.08) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        /* Header */
+        .header {
+            background: var(--card-bg);
+            padding: 16px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .logo-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-item {
+            padding: 10px 20px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            background: transparent;
+        }
+
+        .nav-item:hover {
+            background: rgba(238,77,45,0.1);
+            color: var(--primary);
+        }
+
+        .nav-item.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 16px;
+            background: var(--bg);
+            border-radius: var(--radius);
+            cursor: pointer;
+        }
+
+        .profile-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+        }
+
+        .profile-info h4 {
+            font-size: 0.875rem;
+            font-weight: 700;
+        }
+
+        .profile-info p {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: var(--radius);
+            padding: 48px;
+            color: white;
+            margin-bottom: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            margin-bottom: 32px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(10px);
+            padding: 20px 28px;
+            border-radius: var(--radius-sm);
+            min-width: 180px;
+        }
+
+        .stat-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .stat-card p {
+            font-size: 0.875rem;
+            opacity: 0.8;
+            margin: 0;
+        }
+
+        /* Feature Grid */
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 28px;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 2px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-bottom: 48px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 28px;
+            box-shadow: var(--shadow);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: var(--primary);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, rgba(238,77,45,0.1) 0%, rgba(245,166,35,0.1) 100%);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .feature-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.9375rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            font-size: 0.9375rem;
+        }
+
+        .feature-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(238,77,45,0.4);
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            width: 90%;
+            max-width: 600px;
+            max-height: 85vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active .modal {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-header h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: var(--bg);
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: var(--danger);
+            color: white;
+        }
+
+        .modal-body {
+            padding: 24px;
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-xs);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.2s ease;
+            background: var(--bg);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: white;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        /* Chat Section */
+        .chat-section {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            margin-bottom: 32px;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 20px 24px;
+            color: white;
+        }
+
+        .chat-header h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.125rem;
+            font-weight: 700;
+        }
+
+        .chat-header p {
+            font-size: 0.875rem;
+            opacity: 0.9;
+        }
+
+        .chat-messages {
+            height: 350px;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .chat-message {
+            margin-bottom: 16px;
+            animation: fadeInUp 0.3s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .chat-message.user {
+            text-align: right;
+        }
+
+        .chat-message.ai {
+            text-align: left;
+        }
+
+        .message-bubble {
+            display: inline-block;
+            padding: 12px 18px;
+            border-radius: 16px;
+            max-width: 80%;
+            line-height: 1.5;
+        }
+
+        .chat-message.user .message-bubble {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .chat-message.ai .message-bubble {
+            background: var(--bg);
+            color: var(--text-primary);
+            border-bottom-left-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 4px;
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 12px 18px;
+        }
+
+        .typing-indicator span {
+            width: 8px;
+            height: 8px;
+            background: var(--text-secondary);
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+
+        .typing-indicator span:nth-child(1) { animation-delay: 0s; }
+        .typing-indicator span:nth-child(2) { animation-delay: 0.2s; }
+        .typing-indicator span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+            40% { transform: scale(1); opacity: 1; }
+        }
+
+        .chat-input-area {
+            padding: 16px 20px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            gap: 12px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 14px 18px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .chat-send {
+            padding: 14px 24px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .chat-send:hover {
+            transform: scale(1.05);
+        }
+
+        .quick-prompts {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding: 0 20px 16px;
+        }
+
+        .quick-prompt {
+            padding: 8px 16px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .quick-prompt:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Stock Table */
+        .stock-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .stock-table th {
+            text-align: left;
+            padding: 12px 16px;
+            background: var(--bg);
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .stock-table td {
+            padding: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stock-table tr:hover td {
+            background: var(--bg);
+        }
+
+        .stock-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .stock-badge.high {
+            background: rgba(0,200,83,0.1);
+            color: var(--success);
+        }
+
+        .stock-badge.medium {
+            background: rgba(255,179,0,0.1);
+            color: var(--warning);
+        }
+
+        .stock-badge.low {
+            background: rgba(255,82,82,0.1);
+            color: var(--danger);
+        }
+
+        .stock-action {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .stock-action.edit {
+            background: rgba(238,77,45,0.1);
+            color: var(--primary);
+        }
+
+        .stock-action.delete {
+            background: rgba(255,82,82,0.1);
+            color: var(--danger);
+        }
+
+        .stock-action:hover {
+            transform: scale(1.05);
+        }
+
+        /* Product Cards */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px), 1fr);
+            gap: 16px;
+            margin-top: 20px;
+        }
+
+        .product-card {
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+        }
+
+        .product-image {
+            height: 140px;
+            background: linear-gradient(135deg, rgba(238,77,45,0.2) 0%, rgba(245,166,35,0.2) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+
+        .product-info {
+            padding: 16px;
+        }
+
+        .product-info h4 {
+            font-size: 0.9375rem;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+
+        .product-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-price span {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+        }
+
+        .product-price .profit {
+            color: var(--success);
+            font-size: 0.875rem;
+        }
+
+        /* Result Box */
+        .result-box {
+            background: linear-gradient(135deg, rgba(0,200,83,0.1) 0%, rgba(0,200,83,0.05) 100%);
+            border: 2px solid var(--success);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .result-box h4 {
+            color: var(--success);
+            margin-bottom: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .result-price {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--success);
+        }
+
+        .result-breakdown {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 16px;
+            font-size: 0.875rem;
+        }
+
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        /* Generated Description */
+        .generated-text {
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            line-height: 1.7;
+            margin-top: 16px;
+            white-space: pre-wrap;
+        }
+
+        .copy-btn {
+            margin-top: 12px;
+            padding: 10px 20px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: var(--radius-xs);
+            cursor: pointer;
+            font-weight: 600;
+            font-family: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--text-primary);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 32px 24px;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 32px 24px;
+            }
+
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .stats {
+                flex-direction: column;
+            }
+
+            .stat-card {
+                width: 100%;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Loading Skeleton */
+        .skeleton {
+            background: linear-gradient(90deg, var(--bg) 25%, #e0e0e0 50%, var(--bg) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 8px;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">🛒</div>
+                <span class="logo-text">ShopeeReseller AI</span>
+            </div>
+            <nav class="nav">
+                <button class="nav-item active" data-tab="dashboard">Dashboard</button>
+                <button class="nav-item" data-tab="products">Products</button>
+                <button class="nav-item" data-tab="calculator">Calculator</button>
+                <button class="nav-item" data-tab="tips">Tips</button>
+            </nav>
+            <div class="profile">
+                <div class="profile-avatar">R</div>
+                <div class="profile-info">
+                    <h4>Reseller Pro</h4>
+                    <p>Premium Member</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero fade-in">
+            <div class="hero-content">
+                <h1>Jualan Smarter, Bukan Harder</h1>
+                <p>Asisten AI untuk para reseller Shopee Indonesia. Temukan produk profitable, buat listing menarik, dan naikkan penjualan!</p>
+                <div class="stats">
+                    <div class="stat-card">
+                        <h3>Rp 2.5jt</h3>
+                        <p>Profit Bulan Ini</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>156</h3>
+                        <p>Produk Terjual</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>98%</h3>
+                        <p>Customer Satisfaction</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Feature Grid -->
+        <h2 class="section-title">Fitur AI</h2>
+        <div class="feature-grid">
+            <!-- Product Finder -->
+            <div class="feature-card fade-in stagger-1" onclick="openModal('productFinder')">
+                <div class="feature-icon">🔍</div>
+                <h3>Product Finder</h3>
+                <p>Temukan produk profitable dengan analisis AI. Input kategori & budget, kami bantu cari yang paling cocok!</p>
+                <button class="feature-btn">
+                    Cari Produk <span>→</span>
+                </button>
+            </div>
+
+            <!-- Price Calculator -->
+            <div class="feature-card fade-in stagger-2" onclick="openModal('priceCalculator')">
+                <div class="feature-icon">🧮</div>
+                <h3>Price Calculator</h3>
+                <p>Kalkulasi harga jual otomatis dengan mempertimbangkan biaya platform, ongkir, dan margin keuntungan.</p>
+                <button class="feature-btn">
+                    Hitung Harga <span>→</span>
+                </button>
+            </div>
+
+            <!-- Description Generator -->
+            <div class="feature-card fade-in stagger-3" onclick="openModal('descGenerator')">
+                <div class="feature-icon">✍️</div>
+                <h3>Description Generator</h3>
+                <p>Buat deskripsi produk Shopee-ready dengan AI. Lengkap emoji, hashtag, dan keyword SEO!</p>
+                <button class="feature-btn">
+                    Generate Deskripsi <span>→</span>
+                </button>
+            </div>
+
+            <!-- Stock Manager -->
+            <div class="feature-card fade-in stagger-4" onclick="openModal('stockManager')">
+                <div class="feature-icon">📦</div>
+                <h3>Stock Manager</h3>
+                <p>Atur inventori dengan mudah. Track stok, harga modal, dan monitor profit per produk.</p>
+                <button class="feature-btn">
+                    Kelola Stok <span>→</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Chat Section -->
+        <section class="chat-section fade-in">
+            <div class="chat-header">
+                <h3>💬 AI Sales Assistant</h3>
+                <p>Tanya apa aja soal jualan di Shopee!</p>
+            </div>
+            <div class="quick-prompts">
+                <button class="quick-prompt" onclick="askAI('Tips naikin penjualan')">📈 Tips naikin penjualan</button>
+                <button class="quick-prompt" onclick="askAI('Cara handling complaint')">🛡️ Handle complaint</button>
+                <button class="quick-prompt" onclick="askAI('Strategi menang bidding')">🎯 Strategi bidding</button>
+                <button class="quick-prompt" onclick="askAI('Cara dapat review positif')">⭐ Dapat review positif</button>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <div class="chat-message ai">
+                    <div class="message-bubble">Halo! 👋 Saya AI Assistant ShopeeReseller. Ada yang bisa saya bantu soal jualan di Shopee? Coba klik quick prompt di atas atau ketik pertanyaan kamu!</div>
+                    <div class="message-time">Baru saja</div>
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Ketik pertanyaan kamu di sini..." onkeypress="handleChatEnter(event)">
+                <button class="chat-send" onclick="sendMessage()">Kirim</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>Made with ❤️ untuk para reseller Indonesia | © 2024 ShopeeReseller AI</p>
+    </footer>
+
+    <!-- Modal: Product Finder -->
+    <div class="modal-overlay" id="modalProductFinder">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>🔍 Product Finder</h2>
+                <button class="modal-close" onclick="closeModal('productFinder')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Kategori Produk</label>
+                    <select id="pfCategory">
+                        <option value="fashion">Fashion & Apparel</option>
+                        <option value="elektronik">Elektronik & Gadget</option>
+                        <option value="kecantikan">Kecantikan & Skincare</option>
+                        <option value="rumah">Rumah & Dapur</option>
+                        <option value="olahraga">Olahraga & Outdoor</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Budget Modal (Rp)</label>
+                        <input type="number" id="pfBudget" placeholder="500000" value="500000">
+                    </div>
+                    <div class="form-group">
+                        <label>Target Margin (%)</label>
+                        <input type="number" id="pfMargin" placeholder="30" value="30">
+                    </div>
+                </div>
+                <button class="feature-btn" style="width: 100%;" onclick="findProducts()">
+                    🔍 Cari Produk
+                </button>
+                <div id="pfResults" class="product-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Price Calculator -->
+    <div class="modal-overlay" id="modalPriceCalculator">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>🧮 Price Calculator</h2>
+                <button class="modal-close" onclick="closeModal('priceCalculator')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Harga Modal (Rp)</label>
+                        <input type="number" id="pcModal" placeholder="100000">
+                    </div>
+                    <div class="form-group">
+                        <label>Berat Produk (gram)</label>
+                        <input type="number" id="pcWeight" placeholder="500">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Biaya Kirim (Rp)</label>
+                        <input type="number" id="pcOngkir" placeholder="20000" value="20000">
+                    </div>
+                    <div class="form-group">
+                        <label>Target Margin (%)</label>
+                        <input type="number" id="pcMargin" placeholder="25" value="25">
+                    </div>
+                </div>
+                <button class="feature-btn" style="width: 100%;" onclick="calculatePrice()">
+                    💰 Hitung Harga Jual
+                </button>
+                <div id="pcResults"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Description Generator -->
+    <div class="modal-overlay" id="modalDescGenerator">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>✍️ Description Generator</h2>
+                <button class="modal-close" onclick="closeModal('descGenerator')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Nama Produk</label>
+                    <input type="text" id="dgName" placeholder="Contoh: Dress Wanita Muslimah Kyoto">
+                </div>
+                <div class="form-group">
+                    <label>Fitur Utama (pisahkan dengan koma)</label>
+                    <input type="text" id="dgFeatures" placeholder="Bahan katun, adem, cocok untuk acara formal">
+                </div>
+                <div class="form-group">
+                    <label>Keyword SEO (pisahkan dengan koma)</label>
+                    <input type="text" id="dgKeywords" placeholder="dress muslim, dress terbaru, fashion hijab">
+                </div>
+                <button class="feature-btn" style="width: 100%;" onclick="generateDescription()">
+                    ✨ Generate Deskripsi
+                </button>
+                <div id="dgResults"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Stock Manager -->
+    <div class="modal-overlay" id="modalStockManager">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>📦 Stock Manager</h2>
+                <button class="modal-close" onclick="closeModal('stockManager')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Nama Produk</label>
+                        <input type="text" id="smName" placeholder="Nama produk">
+                    </div>
+                    <div class="form-group">
+                        <label>Kategori</label>
+                        <select id="smCategory">
+                            <option value="fashion">Fashion</option>
+                            <option value="elektronik">Elektronik</option>
+                            <option value="kecantikan">Kecantikan</option>
+                            <option value="rumah">Rumah</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Stok</label>
+                        <input type="number" id="smStock" placeholder="100">
+                    </div>
+                    <div class="form-group">
+                        <label>Harga Modal (Rp)</label>
+                        <input type="number" id="smModal" placeholder="50000">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Harga Jual (Rp)</label>
+                    <input type="number" id="smJual" placeholder="75000">
+                </div>
+                <button class="feature-btn" style="width: 100%;" onclick="addStock()">
+                    ➕ Tambah Produk
+                </button>
+                <div id="smResults" style="margin-top: 20px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== MODAL FUNCTIONS ====================
+        function openModal(type) {
+            document.getElementById('modal' + capitalize(type)).classList.add('active');
+            if (type === 'stockManager') loadStock();
+        }
+
+        function closeModal(type) {
+            document.getElementById('modal' + capitalize(type)).classList.remove('active');
+        }
+
+        function capitalize(str) {
+            return str.charAt(0).toUpperCase() + str.slice(1);
+        }
+
+        // Close modal on overlay click
+        document.querySelectorAll('.modal-overlay').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
+
+        // ==================== PRODUCT FINDER ====================
+        const products = {
+            fashion: [
+                { name: 'T-Shirt Oversize Premium', modal: 45000, profit: 25000 },
+                { name: 'Celana Jogger Casual', modal: 85000, profit: 40000 },
+                { name: 'Dress Wanita Korean Style', modal: 120000, profit: 65000 },
+                { name: 'Hijab Instan Premium', modal: 55000, profit: 35000 },
+                { name: 'Kemeja Flanel Laki-laki', modal: 95000, profit: 45000 },
+            ],
+            elektronik: [
+                { name: 'Case HP iPhone 15 Pro', modal: 35000, profit: 25000 },
+                { name: 'Kabel Data Type-C 2m', modal: 18000, profit: 15000 },
+                { name: 'Screen Protector Tempered Glass', modal: 15000, profit: 12000 },
+                { name: 'Earphone Wireless Bluetooth', modal: 85000, profit: 55000 },
+                { name: 'Powerbank 10000mAh', modal: 95000, profit: 45000 },
+            ],
+            kecantikan: [
+                { name: 'Lipstick Matte Long Lasting', modal: 28000, profit: 22000 },
+                { name: 'Skincare Set Daily Routine', modal: 75000, profit: 50000 },
+                { name: 'Sunscreen SPF 50 PA++++', modal: 42000, profit: 28000 },
+                { name: 'Serum Vitamin C 20ml', modal: 35000, profit: 25000 },
+                { name: 'Masker Wajah Sheet Pack', modal: 8000, profit: 7000 },
+            ],
+            rumah: [
+                { name: 'Sprei Double Bed Premium', modal: 95000, profit: 55000 },
+                { name: 'Bantal Tidur Memory Foam', modal: 75000, profit: 45000 },
+                { name: 'Organizer Makeup acrylic', modal: 45000, profit: 30000 },
+                { name: 'Lampu LED Strip RGB', modal: 35000, profit: 25000 },
+                { name: 'Tempat Sampah Pedal 5L', modal: 28000, profit: 18000 },
+            ],
+            olahraga: [
+                { name: 'Resistance Band Set', modal: 35000, profit: 25000 },
+                { name: 'Matras Yoga 6mm', modal: 55000, profit: 35000 },
+                { name: 'Tumbler Stainless 750ml', modal: 42000, profit: 28000 },
+                { name: 'Skipping Rope Digital', modal: 28000, profit: 20000 },
+                { name: 'Hand Grip Strengthener', modal: 22000, profit: 15000 },
+            ],
+        };
+
+        function findProducts() {
+            const category = document.getElementById('pfCategory').value;
+            const budget = parseInt(document.getElementById('pfBudget').value) || 500000;
+            const targetMargin = parseInt(document.getElementById('pfMargin').value) || 30;
+
+            const resultsContainer = document.getElementById('pfResults');
+            resultsContainer.innerHTML = '<div class="skeleton" style="height: 200px; grid-column: 1/-1;"></div>';
+
+            setTimeout(() => {
+                const filteredProducts = products[category].filter(p => p.modal <= budget);
+                
+                if (filteredProducts.length === 0) {
+                    resultsContainer.innerHTML = '<p style="text-align: center; color: var(--text-secondary); grid-column: 1/-1;">Tidak ada produk yang sesuai dengan budget kamu.</p>';
+                    return;
+                }
+
+                resultsContainer.innerHTML = filteredProducts.map(p => {
+                    const margin = Math.round((p.profit / p.modal) * 100);
+                    const emoji = getEmoji(category);
+                    return `
+                        <div class="product-card">
+                            <div class="product-image">${emoji}</div>
+                            <div class="product-info">
+                                <h4>${p.name}</h4>
+                                <div class="product-price">
+                                    <span>Modal: Rp ${p.modal.toLocaleString()}</span>
+                                    <span class="profit">+${margin}%</span>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }, 800);
+        }
+
+        function getEmoji(category) {
+            const emojis = {
+                fashion: '👗',
+                elektronik: '📱',
+                kecantikan: '💄',
+                rumah: '🏠',
+                olahraga: '💪'
+            };
+            return emojis[category] || '📦';
+        }
+
+        // ==================== PRICE CALCULATOR ====================
+        function calculatePrice() {
+            const modal = parseFloat(document.getElementById('pcModal').value) || 0;
+            const weight = parseFloat(document.getElementById('pcWeight').value) || 0;
+            const ongkir = parseFloat(document.getElementById('pcOngkir').value) || 0;
+            const targetMargin = parseFloat(document.getElementById('pcMargin').value) || 25;
+
+            if (modal === 0) {
+                alert('Masukkan harga modal!');
+                return;
+            }
+
+            // Shopee fee approximately 6% + 2% (payment fee)
+            const shopeeFee = 0.08;
+            
+            // Calculate selling price
+            // Price = (Modal + Ongkir) / (1 - Margin% - Fee%)
+            const totalCost = modal + ongkir;
+            const divisor = 1 - (targetMargin / 100) - shopeeFee;
+            const sellingPrice = Math.ceil(totalCost / divisor);
+
+            const profit = sellingPrice - totalCost;
+            const actualMargin = ((profit / sellingPrice) * 100).toFixed(1);
+
+            const resultsContainer = document.getElementById('pcResults');
+            resultsContainer.innerHTML = `
+                <div class="result-box">
+                    <h4>💰 Harga Jual yang Disarankan</h4>
+                    <div class="result-price">Rp ${sellingPrice.toLocaleString()}</div>
+                    <div class="result-breakdown">
+                        <div class="breakdown-item">
+                            <span>Harga Modal</span>
+                            <strong>Rp ${modal.toLocaleString()}</strong>
+                        </div>
+                        <div class="breakdown-item">
+                            <span>Biaya Kirim</span>
+                            <strong>Rp ${ongkir.toLocaleString()}</strong>
+                        </div>
+                        <div class="breakdown-item">
+                            <span>Fee Shopee (~8%)</span>
+                            <strong>Rp ${Math.round(sellingPrice * shopeeFee).toLocaleString()}</strong>
+                        </div>
+                        <div class="breakdown-item">
+                            <span>Profit Bersih</span>
+                            <strong style="color: var(--success)">Rp ${profit.toLocaleString()}</strong>
+                        </div>
+                    </div>
+                    <p style="margin-top: 16px; font-size: 0.875rem; color: var(--text-secondary);">
+                        * Margin aktual: ${actualMargin}% | Berat: ${weight}g
+                    </p>
+                </div>
+            `;
+        }
+
+        // ==================== DESCRIPTION GENERATOR ====================
+        function generateDescription() {
+            const name = document.getElementById('dgName').value;
+            const features = document.getElementById('dgFeatures').value;
+            const keywords = document.getElementById('dgKeywords').value;
+
+            if (!name) {
+                alert('Masukkan nama produk!');
+                return;
+            }
+
+            const featuresList = features ? features.split(',').map(f => f.trim()) : [];
+            const keywordsList = keywords ? keywords.split(',').map(k => k.trim()) : [];
+
+            // Simulate AI generation
+            const resultsContainer = document.getElementById('dgResults');
+            resultsContainer.innerHTML = '<div class="skeleton" style="height: 150px;"></div>';
+
+            setTimeout(() => {
+                let description = `✨ ${name.toUpperCase()} ✨\n\n`;
+                description += `🔥 PRODUK UNGGULAN! Stok terbatas, buruan checkout! 🔥\n\n`;
+                
+                description += `📌 SPESIFIKASI:\n`;
+                featuresList.forEach((f, i) => {
+                    description += `   ✓ ${f}\n`;
+                });
+
+                description += `\n💯 KEUNGGULAN:\n`;
+                description += `   🌟 Bahan premium berkualitas\n`;
+                description += `   🌟 Jahitan rapih dan kuat\n`;
+                description += `   🌟 Nyaman digunakan sehari-hari\n`;
+                description += `   🌟 Cocok untuk casual & formal\n\n`;
+
+                description += `📦 DETAIL:\n`;
+                description += `   📍 Original 100%\n`;
+                description += `   📍 Packing aman bubble wrap\n`;
+                description += `   📍 Ready stock - dikirim hari ini!\n\n`;
+
+                description += `🏷️ TAGS: `;
+                description += keywordsList.join(' | ') || ' produk berkualitas | murah meriah | wajib punya';
+                
+                resultsContainer.innerHTML = `
+                    <div class="generated-text" id="generatedText">${description}</div>
+                    <button class="copy-btn" onclick="copyToClipboard()">📋 Copy ke Clipboard</button>
+                `;
+            }, 1000);
+        }
+
+        function copyToClipboard() {
+            const text = document.getElementById('generatedText').innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const btn = document.querySelector('.copy-btn');
+                btn.textContent = '✅ Tersalin!';
+                setTimeout(() => {
+                    btn.textContent = '📋 Copy ke Clipboard';
+                }, 2000);
+            });
+        }
+
+        // ==================== STOCK MANAGER ====================
+        let stockData = JSON.parse(localStorage.getItem('stockData')) || [];
+
+        function loadStock() {
+            const resultsContainer = document.getElementById('smResults');
+            
+            if (stockData.length === 0) {
+                resultsContainer.innerHTML = '<p style="text-align: center; color: var(--text-secondary);">Belum ada produk. Tambahkan produk baru!</p>';
+                return;
+            }
+
+            let tableHTML = `
+                <table class="stock-table">
+                    <thead>
+                        <tr>
+                            <th>Produk</th>
+                            <th>Stok</th>
+                            <th>Modal</th>
+                            <th>Jual</th>
+                            <th>Margin</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            stockData.forEach((item, index) => {
+                const margin = Math.round(((item.hargaJual - item.hargaModal) / item.hargaJual) * 100);
+                let badgeClass = 'high';
+                if (margin < 20) badgeClass = 'low';
+                else if (margin < 30) badgeClass = 'medium';
+
+                tableHTML += `
+                    <tr>
+                        <td><strong>${item.nama}</strong><br><small style="color: var(--text-secondary)">${item.kategori}</small></td>
+                        <td>${item.stock}</td>
+                        <td>Rp ${item.hargaModal.toLocaleString()}</td>
+                        <td>Rp ${item.hargaJual.toLocaleString()}</td>
+                        <td><span class="stock-badge ${badgeClass}">${margin}%</span></td>
+                        <td>
+                            <button class="stock-action delete" onclick="deleteStock(${index})">Hapus</button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            tableHTML += '</tbody></table>';
+            resultsContainer.innerHTML = tableHTML;
+        }
+
+        function addStock() {
+            const nama = document.getElementById('smName').value;
+            const kategori = document.getElementById('smCategory').value;
+            const stock = parseInt(document.getElementById('smStock').value) || 0;
+            const hargaModal = parseInt(document.getElementById('smModal').value) || 0;
+            const hargaJual = parseInt(document.getElementById('smJual').value) || 0;
+
+            if (!nama || stock === 0 || hargaModal === 0 || hargaJual === 0) {
+                alert('Lengkapi semua data produk!');
+                return;
+            }
+
+            stockData.push({ nama, kategori, stock, hargaModal, hargaJual });
+            localStorage.setItem('stockData', JSON.stringify(stockData));
+
+            // Clear inputs
+            document.getElementById('smName').value = '';
+            document.getElementById('smStock').value = '';
+            document.getElementById('smModal').value = '';
+            document.getElementById('smJual').value = '';
+
+            loadStock();
+        }
+
+        function deleteStock(index) {
+            if (confirm('Hapus produk ini?')) {
+                stockData.splice(index, 1);
+                localStorage.setItem('stockData', JSON.stringify(stockData));
+                loadStock();
+            }
+        }
+
+        // ==================== CHAT AI ====================
+        const aiResponses = {
+            'Tips naikin penjualan': `📈 **7 Tips Naikkan Penjualan di Shopee:**
+
+1. **Gunakan Foto Produk Berkualitas** - Gunakan foto HD dengan lighting yang baik. Tambahkan video produk.
+
+2. **Optimalkan SEO** - Gunakan keyword yang tepat di judul produk. riset keyword kompetitor.
+
+3. **Promosi di Waktu Tepat** - Aktifkan flash sale dan voucher Shopee.
+
+4. **Responsif Chat** - Balas chat dalam < 1 menit. Gunakan template auto-reply.
+
+5. **Bundling Produk** - Jual paket combo untuk naikkan average order value.
+
+6. **Manfaatkan Shopee Ads** - Mulai dengan daily budget kecil, optimasi berdasarkan data.
+
+7. **Minta Review** - Kirim pesan follow-up setelah pengiriman untuk minta review. 💬`,
+            
+            'Cara handling complaint': `🛡️ **Handling Complaint ala Pro:**
+
+1. **Respon Cepat** - Balas dalam 1x24 jam, idealnya < 1 jam
+
+2. **Tone Empati** - "Kami paham kekecewaan Anda..."
+
+3. **Akui Masalah** - Jangan cari excuses, akui dan tanggung jawab
+
+4. **Offer Solusi** - 
+   - Refund penuh
+   - Kirim ulang + free ongkir
+   - Voucher pengganti
+
+5. **Follow Up** - Pastikan customer puas dengan solusi
+
+6. **Preventive** - Tingkatkan quality control & packing
+
+💡 *Pelanggan yang complain & puas akan jadi brand ambassador kamu!*`,
+            
+            'Strategi menang bidding': `🎯 **Strategi Memenangkan Bidding:**
+
+1. **Riset Harga Kompetitor** - Cek harga lowest seller
+
+2. **Hitung Marjin with Fee** - Pastikan masih profit
+
+3. **Timing是关键** - Bid saat jam off-peak untuk visibility lebih lama
+
+4. **Gunakan Voucher Shopee** - Kombinasikan dengan free shipping
+
+5. **Quality Score** - Pastikan produk punya review & rating bagus
+
+6. **Budget Smart** - Mulai dari Rp 50-100rb/hari, scale up jika ROI positive
+
+7. **A/B Testing** - Tes headline, gambar, dan targeting berbeda
+
+💰 *Kunci: Bukan hanya harga termurah, tapi value yang paling baik!*`,
+            
+            'Cara dapat review positif': `⭐ **5 Langkah Dapat Review 5 Bintang:**
+
+1. **Produk Sesuai Deskripsi** - Foto real, deskripsi akurat
+
+2. **Packing Rapi** - Double bubble wrap, masukan ke pouch
+
+3. **Thank You Card** - Sisipkan kartu terima kasih + request review
+
+4. **Follow Up Message** - Kirim chat 3-5 hari setelah pengiriman:
+   "Halo kak, paket sudah diterima? Kalau berkenan, review 5 bintang sangat membantu kami 🙏"
+
+5. **Solusi Masalah Cepat** - Tangani complaint sebelum customer kasih bintang rendah
+
+🌟 *Target: 4.8+ rating = Boost di Shopee search!*`
+        };
+
+        function handleChatEnter(e) {
+            if (e.key === 'Enter') sendMessage();
+        }
+
+        function askAI(prompt) {
+            document.getElementById('chatInput').value = prompt;
+            sendMessage();
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+            if (!message) return;
+
+            const chatMessages = document.getElementById('chatMessages');
+
+            // Add user message
+            chatMessages.innerHTML += `
+                <div class="chat-message user">
+                    <div class="message-bubble">${message}</div>
+                    <div class="message-time">Baru saja</div>
+                </div>
+            `;
+
+            input.value = '';
+
+            // Add typing indicator
+            chatMessages.innerHTML += `
+                <div class="chat-message ai" id="typingIndicator">
+                    <div class="message-bubble">
+                        <div class="typing-indicator">
+                            <span></span><span></span><span></span>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            // Generate AI response
+            setTimeout(() => {
+                document.getElementById('typingIndicator').remove();
+
+                let response = aiResponses[message] || 
+                    `Hmm, pertanyaan bagus! 🤔\n\nBerdasarkan pengalaman para top seller Shopee:\n\n1. Fokus pada kualitas produk & foto\n2. Respons chat < 5 menit\n3. Pakai fitur promotion Shopee\n4. Tracking competitor pricing\n5. Konsisten upload produk baru\n\nMau tanya lebih spesifik? Klik quick prompt di atas ya! 💪`;
+
+                chatMessages.innerHTML += `
+                    <div class="chat-message ai">
+                        <div class="message-bubble">${response.replace(/\n/g, '<br>')}</div>
+                        <div class="message-time">Baru saja</div>
+                    </div>
+                `;
+
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 1500);
+        }
+
+        // Navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+            });
+        });
+
+        // Initialize stock on load
+        loadStock();
+    </script>
+</body>
+</html>
