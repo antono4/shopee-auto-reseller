@@ -1,5 +1,8 @@
 # Shopee Auto Reseller 🛒
 
+> **Created by Antono**
+
+
 ![Shopee Reseller Banner](https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800)
 
 Automated reseller tool for Shopee marketplace.
